@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIDF 2026 – Light Tech Pack</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#c9d1d9;min-height:100vh}
+.hdr{background:#161b22;border-bottom:2px solid #00b4d8;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.hdr-title{font-size:19px;font-weight:700;color:#fff;letter-spacing:.3px}
+.hdr-sub{font-size:12px;color:#8b949e;margin-top:3px}
+.badge{background:#00b4d8;color:#0d1117;font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;text-transform:uppercase;letter-spacing:1px}
+.nav{background:#161b22;padding:0 32px;border-bottom:1px solid #21262d;display:flex;gap:2px;overflow-x:auto}
+.nav-btn{background:none;border:none;color:#8b949e;padding:14px 18px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;transition:all .18s;white-space:nowrap;font-family:inherit}
+.nav-btn:hover{color:#c9d1d9;border-bottom-color:#30363d}
+.nav-btn.active{color:#00b4d8;border-bottom-color:#00b4d8;font-weight:600}
+.content{max-width:1180px;margin:0 auto;padding:28px 32px}
+.sec-title{font-size:21px;font-weight:700;color:#fff;margin-bottom:6px}
+.sec-sub{font-size:13px;color:#8b949e;margin-bottom:22px}
+.table-wrap{background:#0d1117;border:1px solid #21262d;border-radius:10px;overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#161b22;color:#8b949e;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:10px 14px;text-align:left;border-bottom:1px solid #21262d;white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid #161b22;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(255,255,255,.018)}
+.num{font-size:17px;font-weight:700;min-width:32px;display:inline-block}
+.chip{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin:1px}
+.chip-solo{background:rgba(168,85,247,.2);color:#c084fc}
+.chip-group{background:rgba(0,180,216,.15);color:#67e8f9}
+.chip-all{background:rgba(52,211,153,.15);color:#6ee7b7}
+.chip-tbd{background:rgba(139,148,158,.12);color:#8b949e}
+.pri-tag{display:inline-block;background:rgba(239,68,68,.22);color:#f87171;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;margin-right:4px}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;padding:14px 16px;background:#161b22;border:1px solid #21262d;border-radius:8px}
+.li{display:flex;align-items:center;gap:5px;font-size:11px;color:#8b949e}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-bottom:24px}
+.info-card{background:#161b22;border:1px solid #21262d;border-radius:9px;padding:18px}
+.ic-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#8b949e;margin-bottom:6px}
+.ic-val{font-size:22px;font-weight:700;color:#fff}
+.ic-sub{font-size:12px;color:#484f58;margin-top:3px}
+.tl{position:relative;padding-left:28px}
+.tl::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:#21262d}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-dot{position:absolute;left:-24px;top:4px;width:10px;height:10px;border-radius:50%;background:#00b4d8;border:2px solid #0d1117}
+.tl-dot.pri{background:#ef4444;box-shadow:0 0 7px rgba(239,68,68,.4)}
+.tl-dot.brk{background:#30363d}
+.tl-dot.show{background:#ef4444;width:13px;height:13px;left:-26px;box-shadow:0 0 10px rgba(239,68,68,.5)}
+.tl-time{font-size:12px;font-weight:700;color:#00b4d8;margin-bottom:2px}
+.tl-lbl{font-size:14px;font-weight:600;color:#e6edf3}
+.tl-note{font-size:11px;color:#484f58;margin-top:2px}
+.alert{padding:12px 16px;border-radius:7px;margin-bottom:18px;font-size:13px;line-height:1.5}
+.alert-warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);color:#fbbf24}
+.alert-info{background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.25);color:#67e8f9}
+
+.import-section{max-width:700px}
+.import-card{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:22px 24px;margin-bottom:20px}
+.import-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#8b949e;margin-bottom:8px;display:block}
+.import-ta{width:100%;padding:10px 12px;background:#0d1117;border:1px solid #30363d;border-radius:7px;font-size:12px;font-family:monospace;color:#c9d1d9;min-height:80px;resize:vertical;box-sizing:border-box}
+.import-ta:focus{outline:none;border-color:#00b4d8}
+.import-btn{padding:10px 22px;background:#00b4d8;color:#0d1117;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:10px}
+.import-btn:hover{background:#0099b8}
+.asts{width:100%;border-collapse:collapse;font-size:13px}
+.asts th{background:#0d1117;color:#8b949e;padding:9px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid #21262d}
+.asts td{padding:10px 12px;border-bottom:1px solid #161b22;vertical-align:top}
+.tag-ok{display:inline-block;background:rgba(52,211,153,.18);color:#6ee7b7;font-size:9px;font-weight:700;padding:2px 7px;border-radius:9px;text-transform:uppercase}
+.tag-wait{display:inline-block;background:rgba(139,148,158,.12);color:#6e7681;font-size:9px;font-weight:700;padding:2px 7px;border-radius:9px;text-transform:uppercase}
+
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-title">GIDF Gala Showcase 2026 — Light Technician Pack</div>
+    <div class="hdr-sub">Saturday 2 May 2026 &nbsp;·&nbsp; 20:30 &nbsp;·&nbsp; Shoonya Dance Centre, Ghent &nbsp;·&nbsp; Curated by Swapnil Dagliya / ABC</div>
+  </div>
+  <div class="badge">Tech Only</div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="show(this,'order')">Show Order</button>
+  <button class="nav-btn" onclick="show(this,'cheat')">Cheatsheet &amp; Cues</button>
+  <button class="nav-btn" onclick="show(this,'reh')">Tech Rehearsal</button>
+  <button class="nav-btn" onclick="show(this,'script')">Light Script</button>
+  <button class="nav-btn" onclick="show(this,'import')">Teacher Data</button>
+</div>
+
+<div class="content" id="content"></div>
+
+<script>
+// ============================================================
+// DATA — Edit this section to update show information
+// ============================================================
+const ACTS = [
+  { num:1,  performer:"Bollywood 2", song:"Morya Re", fmt:"Group", type:"swapnil", swapnil:true, entry:"Curtain closed \u2192 opens with music", note:"Music and curtain open together \u2014 Morya Re plays first. Swapnil gives live welcome to audience AFTER the act.", pri:["CURTAIN OPEN"], dur:"TBD", lights:"Front: warm white + pink wash\nBack LEDs: deep purple \u2192 pink\nSide: magenta\nCurtain up cue on beat 1 of music", smoke:false, blackout:false },
+  { num:2,  performer:"Opening Party Performer 1", song:"TBD", fmt:"Solo", type:"op", swapnil:false, entry:"On-stage", note:"Guest performer \u2014 name TBD", pri:[], dur:"TBD", lights:"Front: warm white centre spot\nBack LEDs: neutral blue", smoke:false, blackout:false },
+  { num:3,  performer:"Desihop", song:"TBD", fmt:"Group", type:"other", swapnil:false, entry:"On-stage", note:"", pri:[], dur:"TBD", lights:"Front: warm white + amber wash\nBack LEDs: warm amber\nSide: amber/orange", smoke:false, blackout:false },
+  { num:4,  performer:"Bollyfolk \u2014 Ghoomar", song:"Jalalo Bilalo / Savariya Parnaye", fmt:"Group", type:"bollyfolk", swapnil:true, entry:"Off-stage \u2192 enter with music", note:"Dancers enter from wings as music starts.", pri:[], dur:"TBD", lights:"Front: golden/amber \u2014 keep front strong\nBack LEDs: warm amber/gold\nSide: orange-amber\n\u2605 Mirrors catch light \u2014 strong front gives sparkle", smoke:false, blackout:false },
+  { num:5,  performer:"Manasi", song:"Giddha", fmt:"Solo", type:"other", swapnil:false, entry:"On-stage", note:"", pri:[], dur:"TBD", lights:"Front: warm white centre spot\nBack LEDs: warm amber", smoke:false, blackout:false },
+  { num:6,  performer:"Bollyfolk \u2014 Tippani", song:"O Re Kanchi", fmt:"Group", type:"bollyfolk", swapnil:true, entry:"On-stage", note:"", pri:[], dur:"TBD", lights:"Front: golden front + amber wash\nBack LEDs: warm amber/gold\nSide: warm yellow\n\u2605 Same mirror sparkle as Ghoomar", smoke:false, blackout:false },
+  { num:7,  performer:"Opening Party Performer 2", song:"TBD", fmt:"Solo", type:"op", swapnil:false, entry:"On-stage", note:"Guest performer \u2014 name TBD", pri:[], dur:"TBD", lights:"Front: warm white centre spot\nBack LEDs: neutral warm", smoke:false, blackout:false },
+  { num:8,  performer:"ABC \u2014 Choli Ke Peeche", song:"Choli Ke Peeche Kya Hai", fmt:"Group", type:"abc", swapnil:false, entry:"On-stage", note:"ABC company piece. Swapnil NOT performing \u2014 resting backstage.", pri:[], dur:"TBD", lights:"Front: warm white + colourful wash\nBack LEDs: cycling RGB\nSide: multi-colour\nBollywood energy \u2014 bright & festive", smoke:false, blackout:false },
+  { num:9,  performer:"Bhangra", song:"Insane Bhangra Mashup / Tere Long Da", fmt:"Group", type:"swapnil", swapnil:true, entry:"On-stage", note:"2-song medley. Pascale exits after Song 1. Swapnil, Laura & Charlotte join Song 2 only. Cue transition between songs.", pri:["2-SONG TRANSITION"], dur:"5:34", lights:"Front: bright white/yellow wash\nBack LEDs: green\nSide: yellow-green\nHigh energy \u2014 maximum brightness. Pascale exits Song 1 / Swapnil + Laura + Charlotte join Song 2.", smoke:false, blackout:false },
+  { num:10, performer:"Opening Party Performer 3", song:"TBD", fmt:"Solo", type:"op", swapnil:false, entry:"On-stage", note:"Guest performer \u2014 name TBD.", pri:[], dur:"TBD", lights:"Front: warm white centre spot\nBack LEDs: neutral warm", smoke:false, blackout:false },
+  { num:11, performer:"Shampa \u2605", song:"TBD", fmt:"Solo", type:"guest", swapnil:false, entry:"On-stage", note:"Guest teacher feature moment.", pri:[], dur:"TBD", lights:"TBD", smoke:false, blackout:false },
+  { num:12, performer:"Semi-Classical", song:"Toda & Kavitt / Saiyaara Reprise (Female)", fmt:"Group", type:"swapnil", swapnil:true, entry:"On-stage", note:"Students open with Toda & Kavitt (technical exercises). All students + Swapnil then perform Saiyaara Reprise Female version together.", pri:["STUDENT ENTRY \u2192 SAIYAARA"], dur:"9:00", lights:"Toda & Kavitt: clean cool white + centre spot (precise, technical)\nSaiyaara Reprise: warm amber/orange wash + centre spot as all join", smoke:false, blackout:false },
+  { num:13, performer:"Vaishali \u2605", song:"TBD", fmt:"Solo", type:"guest", swapnil:false, entry:"On-stage", note:"Guest teacher feature moment.", pri:[], dur:"TBD", lights:"TBD", smoke:false, blackout:false },
+  { num:14, performer:"ABC \u2014 Ghar More Pardesiya", song:"Ghar More Pardesiya", fmt:"Group", type:"abc", swapnil:true, entry:"On-stage", note:"ABC company piece. Swapnil leads.", pri:[], dur:"2:21", lights:"Front: cool white + blue wash\nBack LEDs: deep indigo/navy blue\nSide: cool blue/lavender", smoke:false, blackout:false },
+  { num:15, performer:"Colleena \u2605", song:"TBD (Rajasthani Folk)", fmt:"Solo", type:"guest", swapnil:false, entry:"On-stage", note:"Guest teacher. Possible live musician \u2014 confirm placement before show. Same musician continues for Act 16.", pri:["POSSIBLE LIVE MUSICIAN"], dur:"TBD", lights:"Front: warm white centre spot\nBack LEDs: earthy warm amber\nCentre spot prominent for solo", smoke:false, blackout:false },
+  { num:16, performer:"Swapnil \u2014 Kalbeliya", song:"TBD", fmt:"Solo", type:"swapnil", swapnil:true, entry:"On-stage", note:"Possible live musician shared with Colleena (Act 15) \u2014 confirm placement.", pri:["POSSIBLE LIVE MUSICIAN"], dur:"TBD", lights:"Front: warm amber centre spot\nBack LEDs: deep red/maroon\nSide: earthy red-amber\nEarthy, ground energy for Rajasthani folk", smoke:false, blackout:false },
+  { num:17, performer:"Madhuri Dixit Medley", song:"Madhuri Dixit Medley", fmt:"Group", type:"swapnil", swapnil:true, entry:"On-stage", note:"Bollywood 2 & 3 students. High-energy pre-finale.", pri:[], dur:"7:38", lights:"Front: warm white + pink wash\nBack LEDs: warm pink/magenta\nSide: hot pink/magenta\nBuild energy \u2014 leading into the finale", smoke:false, blackout:false },
+  { num:18, performer:"Grand Finale", song:"TBD \u2014 see Swapnil", fmt:"Everyone", type:"swapnil", swapnil:true, entry:"On-stage", note:"All performers on stage. Swapnil closes show live. Song TBD.", pri:[], dur:"TBD", lights:"ALL LIGHTS \u2014 full colour celebration\nBack LEDs: cycling rainbow\nSide: all colours\nMaximum brightness \u2014 Grand Finale energy", smoke:false, blackout:false }
+];
+
+const REHEARSAL = [
+  { time:"15:00", lbl:"Changing rooms open (Studio Aakash, 2nd Floor)", note:"Costumes pre-set. Students, OP performers & teachers may settle from now.", dot:"brk" },
+  { time:"16:00", lbl:"Tech setup", note:"Lights, sound, smoke machine test \u2014 crew only.", dot:"" },
+  { time:"17:00", lbl:"Act 1 \u2014 Bollywood Batch 2 (Morya Re)", note:"\u26a1 Curtain opens with music. Swapnil welcomes audience live AFTER this act.", dot:"pri" },
+  { time:"17:10", lbl:"Act 2 \u2014 Opening Party Performer 1", note:"", dot:"" },
+  { time:"17:20", lbl:"Act 3 \u2014 Desihop", note:"", dot:"" },
+  { time:"17:30", lbl:"Act 4 \u2014 Bollyfolk (Ghoomar)", note:"\u26a1 Check wing entry lighting \u2014 off-stage entry.", dot:"pri" },
+  { time:"17:40", lbl:"Act 5 \u2014 Manasi", note:"", dot:"" },
+  { time:"17:50", lbl:"Act 6 \u2014 Bollyfolk (Tippani)", note:"", dot:"" },
+  { time:"18:00", lbl:"Act 7 \u2014 Opening Party Performer 2", note:"", dot:"" },
+  { time:"18:10", lbl:"Act 8 \u2014 ABC (Choli Ke Peeche)", note:"", dot:"" },
+  { time:"18:20", lbl:"Act 9 \u2014 Bhangra", note:"\u26a1 2-song transition \u2014 cue between songs.", dot:"pri" },
+  { time:"18:30", lbl:"Act 10 \u2014 Opening Party Performer 3", note:"", dot:"" },
+  { time:"18:40", lbl:"Act 11 \u2014 Shampa", note:"", dot:"" },
+  { time:"18:50", lbl:"Act 12 \u2014 Semi-Classical", note:"\u26a1 Student group entry cue for Saiyaara Reprise.", dot:"pri" },
+  { time:"19:00", lbl:"Act 13 \u2014 Vaishali", note:"", dot:"" },
+  { time:"19:10", lbl:"Act 14 \u2014 ABC (Ghar More Pardesiya)", note:"", dot:"" },
+  { time:"19:20", lbl:"Act 15 \u2014 Colleena", note:"\u26a1 Live musician check if applicable. Same musician stays for Act 16.", dot:"pri" },
+  { time:"19:30", lbl:"Act 16 \u2014 Swapnil (Kalbeliya)", note:"\u26a1 Possible live musician continues from Act 15.", dot:"pri" },
+  { time:"19:40", lbl:"Act 17 \u2014 Madhuri Medley", note:"Bollywood Batch 2, Bollywood Batch 3 & ABC.", dot:"" },
+  { time:"19:50", lbl:"Act 18 \u2014 Grand Finale", note:"All performers on stage. Song TBD \u2014 see Swapnil.", dot:"pri" },
+  { time:"20:00", lbl:"Notes & debrief", note:"Technical notes review with Swapnil.", dot:"" },
+  { time:"20:15", lbl:"All crew at stations", note:"Stand by at tech desk.", dot:"" },
+  { time:"20:30", lbl:"\u25b6 SHOW BEGINS", note:"", dot:"show" }
+];
+
+const TC = {
+  swapnil:  { bg:"rgba(244,162, 97,.07)", dot:"#f4a261", lbl:"Swapnil" },
+  guest:    { bg:"rgba(168, 85,247,.07)", dot:"#a855f7", lbl:"Guest Teacher \u2605" },
+  abc:      { bg:"rgba(  0,180,216,.07)", dot:"#00b4d8", lbl:"ABC Company" },
+  bollyfolk:{ bg:"rgba( 52,211,153,.07)", dot:"#34d399", lbl:"Bollyfolk" },
+  op:       { bg:"rgba( 99,102,241,.07)", dot:"#818cf8", lbl:"Opening Party Performer" },
+  other:    { bg:"transparent",          dot:"#6e7681", lbl:"Other" }
+};
+
+function renderOrder() {
+  const lgnd = Object.entries(TC).map(([k,v])=>`<div class="li"><div class="ld" style="background:${v.dot}"></div>${v.lbl}</div>`).join('')+
+    `<div class="li"><span class="pri-tag">!</span>Priority cue</div>`;
+  const rows = ACTS.map(a=>{
+    const c=TC[a.type]||TC.other;
+    const pris=a.pri.map(p=>`<span class="pri-tag">!</span>${p}`).join(' ');
+    return `<tr style="background:${c.bg}">
+      <td><span class="num" style="color:${c.dot}">${a.num}</span></td>
+      <td>
+        <div style="font-weight:600;color:#e6edf3">${a.performer}${a.swapnil?' <span style="color:#f4a261;font-size:10px">\u25b6 SWAPNIL</span>':''}</div>
+        ${a.note?`<div style="font-size:11px;color:#484f58;margin-top:2px">${a.note}</div>`:''}
+        ${pris?`<div style="margin-top:4px;font-size:11px;color:#f87171">${pris}</div>`:''}
+      </td>
+      <td style="color:#8b949e">${a.song||'\u2014'}</td>
+      <td><span class="chip ${a.fmt==='Everyone'?'chip-all':a.fmt.includes('Solo')?'chip-solo':'chip-group'}">${a.fmt}</span></td>
+      <td style="color:#484f58;font-size:12px">${a.entry}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="sec-title">Show Order</div>
+<div class="sec-sub">18 acts \u00b7 Pre-recorded voiceover introduces each act \u00b7 Act 1 preceded by Swapnil\u2019s live welcome</div>
+<div class="legend">${lgnd}</div>
+<div class="table-wrap"><table>
+  <thead><tr><th style="width:44px">#</th><th>Performer / Group</th><th>Song</th><th>Format</th><th>Entry</th></tr></thead>
+  <tbody>${rows}</tbody>
+</table></div>`;
+}
+
+function renderCheat() {
+  const rows = ACTS.map(a=>{
+    const c=TC[a.type]||TC.other;
+    const pris=a.pri.map(p=>`<span class="pri-tag">!</span>${p}`).join(' ');
+    return `<tr style="background:${c.bg}">
+      <td><span class="num" style="color:${c.dot}">${a.num}</span></td>
+      <td style="font-weight:600;color:#e6edf3">${a.performer}</td>
+      <td style="color:#8b949e">${a.song||'\u2014'}</td>
+      <td style="font-size:12px;color:#484f58">${a.entry}</td>
+      <td>${pris?`<div style="font-size:11px;color:#f87171;margin-bottom:2px">${pris}</div>`:''}${a.note?`<div style="font-size:11px;color:#484f58">${a.note}</div>`:''}</td>
+    </tr>`;
+  }).join('');
+  return `<div class="sec-title">Cheatsheet &amp; Music Cues</div>
+<div class="sec-sub">Quick-reference for show night \u00b7 All acts introduced by pre-recorded voiceover</div>
+<div class="alert alert-warn">\u26a1 Priority cues: <strong>Act 1</strong> curtain open &nbsp;\u00b7&nbsp; <strong>Act 4</strong> off-stage wing entry &nbsp;\u00b7&nbsp; <strong>Act 9</strong> 2-song Bhangra transition &nbsp;\u00b7&nbsp; <strong>Act 12</strong> Semi-Classical student entry &nbsp;\u00b7&nbsp; <strong>Acts 15\u201316</strong> possible live musician (Colleena + Kalbeliya)</div>
+<div class="table-wrap"><table>
+  <thead><tr><th style="width:44px">#</th><th>Performer</th><th>Song</th><th>Entry</th><th>Notes &amp; Cues</th></tr></thead>
+  <tbody>${rows}</tbody>
+</table></div>`;
+}
+
+function renderRehearsal() {
+  const cards=[
+    {lbl:"Tech Setup",val:"15:30",sub:"Lights \u00b7 Sound \u00b7 Smoke check",red:false},
+    {lbl:"First Act",val:"16:10",sub:"Act 1 \u2014 Morya Re",red:false},
+    {lbl:"Rehearsal Ends",val:"~19:30",sub:"Venue prep for audience",red:false},
+    {lbl:"Show Begins",val:"20:30",sub:"All crew at stations by 20:15",red:true}
+  ].map(c=>`<div class="info-card"><div class="ic-lbl">${c.lbl}</div><div class="ic-val" style="${c.red?'color:#ef4444':'color:#fff'}">${c.val}</div><div class="ic-sub">${c.sub}</div></div>`).join('');
+  const items=REHEARSAL.map(r=>`<div class="tl-item">
+    <div class="tl-dot ${r.dot}"></div>
+    <div class="tl-time" style="${r.dot==='show'?'color:#ef4444':r.dot==='brk'?'color:#6e7681':''}">${r.time}</div>
+    <div class="tl-lbl" style="${r.dot==='show'?'color:#ef4444;font-size:16px;font-weight:700':''}">${r.lbl}</div>
+    ${r.note?`<div class="tl-note">${r.note}</div>`:''}
+  </div>`).join('');
+  return `<div class="sec-title">Tech Rehearsal Schedule</div>
+<div class="sec-sub">Saturday 2 May 2026 \u00b7 Stage: First Floor \u2014 Studio Art Deco (10m \u00d7 8m)</div>
+<div class="info-grid">${cards}</div>
+<div class="tl">${items}</div>`;
+}
+
+function renderScript() {
+  const rows=ACTS.map(a=>{
+    const c=TC[a.type]||TC.other;
+    return `<tr style="background:${c.bg}">
+      <td><span class="num" style="color:${c.dot}">${a.num}</span></td>
+      <td><div style="font-weight:600;color:#e6edf3">${a.performer}</div>${a.swapnil?'<div style="font-size:10px;color:#f4a261">\u25b6 Swapnil</div>':''}</td>
+      <td><span class="chip ${a.fmt==='Everyone'?'chip-all':a.fmt.includes('Solo')?'chip-solo':'chip-group'}">${a.fmt}</span></td>
+      <td style="color:#8b949e">${a.song||'\u2014'}</td>
+      <td><span class="chip chip-tbd">${a.dur}</span></td>
+      <td><span class="chip chip-tbd">${a.lights}</span></td>
+      <td style="text-align:center;color:${a.smoke?'#34d399':'#30363d'}">${a.smoke?'\u2713':'\u2014'}</td>
+      <td style="text-align:center;color:${a.blackout?'#34d399':'#30363d'}">${a.blackout?'\u2713':'\u2014'}</td>
+      <td style="text-align:center;color:#30363d">\u2014</td>
+    </tr>`;
+  }).join('');
+  return `<div class="sec-title">Light Script</div>
+<div class="sec-sub">Detailed cue sheet \u00b7 TBD cells to be confirmed during tech rehearsal</div>
+<div class="alert alert-info">Light and smoke cues are TBD \u2014 to be confirmed on the day. You can update the ACTS data at the top of this file to fill them in.</div>
+<div class="table-wrap"><table>
+  <thead><tr><th style="width:40px">#</th><th>Performer</th><th>Format</th><th>Song</th><th>Duration</th><th>Lights / Mood</th><th>Smoke</th><th>Blackout</th><th>Bow</th></tr></thead>
+  <tbody>${rows}</tbody>
+</table></div>`;
+}
+
+function importTeacherCode(code) {
+  var resultEl = document.getElementById('import-result');
+  if(!code || !code.trim()) {
+    if(resultEl) resultEl.innerHTML = '<div style="color:#f87171;margin-top:10px">\u26a0 Please paste a code first.</div>';
+    return;
+  }
+  try {
+    var json = decodeURIComponent(escape(atob(code.trim())));
+    var data = JSON.parse(json);
+    var act = ACTS.find(function(a){ return a.num === data.actNum; });
+    if(!act){
+      if(resultEl) resultEl.innerHTML = '<div style="color:#f87171;margin-top:10px">\u2717 Act ' + data.actNum + ' not found in show order.</div>';
+      return;
+    }
+    if(data.song)     act.song = data.song;
+    if(data.duration) act.dur  = data.duration;
+    if(data.lights)   act.lights = data.lights;
+    if(data.lightCues) act.lights = (act.lights ? act.lights + '\n\u2014 Cue moments: ' + data.lightCues : 'Cue moments: ' + data.lightCues);
+    if(typeof data.smoke    === 'boolean') act.smoke    = data.smoke;
+    if(typeof data.blackout === 'boolean') act.blackout = data.blackout;
+    if(data.cue === 'wing')    act.entry = 'Enter from wing after music begins';
+    if(data.cue === 'onstage') act.entry = 'Already on stage when music starts';
+    act._teacherConfirmed = true;
+    act._teacherName = data.teacherName;
+    // Update the status row in the DOM (no full re-render)
+    var row = document.getElementById('irow-' + data.actNum);
+    if(row) {
+      row.cells[2].innerHTML = '<span class="tag-ok">\u2713 Received</span>';
+      row.cells[3].innerHTML = '<span style="color:#e6edf3">' + (act.song || '\u2014') + '</span>';
+      row.cells[4].innerHTML = '<span style="color:#8b949e">' + (act.dur || '\u2014') + '</span>';
+      row.cells[5].innerHTML = '<span style="color:#8b949e;font-size:11px;white-space:pre">' + (act.lights || '\u2014') + '</span>';
+    }
+    if(resultEl) resultEl.innerHTML = '<div style="color:#34d399;margin-top:10px">\u2713 Act ' + data.actNum + ' (' + data.teacherName + ') imported. Song: <strong>' + (data.song||'?') + '</strong> \u00b7 Duration: <strong>' + (data.duration||'?') + '</strong></div>';
+    // Clear the textarea
+    var ta = document.getElementById('import-code-ta');
+    if(ta) ta.value = '';
+  } catch(e) {
+    if(resultEl) resultEl.innerHTML = '<div style="color:#f87171;margin-top:10px">\u2717 Invalid code \u2014 please check and try again. (' + e.message + ')</div>';
+  }
+}
+
+function renderImport() {
+  var guestActs = ACTS.filter(function(a){ return a.type === 'guest' || a.type === 'other' || a.type === 'op'; });
+  var rows = guestActs.map(function(a) {
+    var done = a._teacherConfirmed;
+    var song  = (a.song  && a.song  !== 'TBD') ? ('<span style="color:#e6edf3">' + a.song  + '</span>') : '\u2014';
+    var dur   = (a.dur   && a.dur   !== 'TBD') ? ('<span style="color:#8b949e">' + a.dur   + '</span>') : '\u2014';
+    var lgts  = (a.lights && a.lights !== 'TBD') ? ('<span style="color:#8b949e;font-size:11px;white-space:pre">' + a.lights + '</span>') : '\u2014';
+    return '<tr id="irow-' + a.num + '">'
+      + '<td><span class="num" style="color:#a855f7">' + a.num + '</span></td>'
+      + '<td style="font-weight:600;color:#e6edf3">' + a.performer + '</td>'
+      + '<td>' + (done ? '<span class="tag-ok">\u2713 Received</span>' : '<span class="tag-wait">Pending</span>') + '</td>'
+      + '<td>' + song + '</td>'
+      + '<td>' + dur  + '</td>'
+      + '<td>' + lgts + '</td>'
+      + '</tr>';
+  }).join('');
+
+  return '<div class="import-section">'
+    + '<div class="sec-title">Teacher Data</div>'
+    + '<div class="sec-sub">Paste a teacher\u2019s summary code to import their info into the Light Script \u00b7 Each import updates the live data instantly</div>'
+
+    + '<div class="import-card">'
+    + '<label class="import-label">Paste teacher summary code</label>'
+    + '<textarea id="import-code-ta" class="import-ta" placeholder="Paste the code from the Teacher Pack \u2192 Info Needed \u2192 Generate Summary\u2026"></textarea>'
+    + '<br><button class="import-btn" onclick="importTeacherCode(document.getElementById(\'import-code-ta\').value)">Import</button>'
+    + '<div id="import-result"></div>'
+    + '</div>'
+
+    + '<div class="import-card">'
+    + '<div style="font-size:13px;font-weight:600;color:#e6edf3;margin-bottom:14px">Guest Teacher &amp; Opening Party Status</div>'
+    + '<div class="table-wrap"><table class="asts">'
+    + '<thead><tr><th>#</th><th>Performer</th><th>Status</th><th>Song</th><th>Duration</th><th>Lights</th></tr></thead>'
+    + '<tbody>' + rows + '</tbody>'
+    + '</table></div>'
+    + '</div>'
+
+    + '</div>';
+}
+
+function show(btn,name){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const el=document.getElementById('content');
+  if(name==='order') el.innerHTML=renderOrder();
+  if(name==='cheat') el.innerHTML=renderCheat();
+  if(name==='reh')   el.innerHTML=renderRehearsal();
+  if(name==='script')el.innerHTML=renderScript();
+  if(name==='import')el.innerHTML=renderImport();
+}
+document.getElementById('content').innerHTML=renderOrder();
+</script>
+</body>
+</html>

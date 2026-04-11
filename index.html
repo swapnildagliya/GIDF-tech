@@ -77,7 +77,8 @@ tbody tr:hover td{background:rgba(255,255,255,.018)}
   .hdr { background:#fff !important; border-bottom:2px solid #000 !important; padding:12px 20px !important; }
   .hdr-title { color:#000 !important; font-size:14px !important; }
   .hdr-sub { color:#444 !important; font-size:11px !important; }
-  .badge, .no-print, .print-btn { display:none !important; }
+  .badge, .no-print { display:none !important; }
+  #hdr-print-btn { display:none !important; }
   .nav { display:none !important; }
   .content { padding:8px 0 !important; max-width:100% !important; }
   .table-wrap { border:1px solid #ccc !important; border-radius:0 !important; overflow:visible !important; }
@@ -103,7 +104,7 @@ tbody tr:hover td{background:rgba(255,255,255,.018)}
   </div>
   <div style="display:flex;align-items:center;gap:10px">
     <div class="badge">Tech Only</div>
-    <button class="print-btn no-print" onclick="window.print()" style="background:#f4a261;color:#fff;border:none;border-radius:7px;padding:7px 15px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">🖨 Print</button>
+    <button id="hdr-print-btn" onclick="window.print()" style="background:#f4a261;color:#fff;border:none;border-radius:7px;padding:7px 15px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">🖨 Print</button>
   </div>
 </div>
 
